@@ -1,0 +1,15 @@
+{
+  "name": "kpi-api",
+  "version": "0.0.1",
+  "description": "Simple KPI tool.",
+  "main": "server.js",
+  "repository": "git@github.com:stianba/kpi-api.git",
+  "author": "Stian Bakkane <stianba@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3"
+  },
+  "devDependencies": {}
+}
