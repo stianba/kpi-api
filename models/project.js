@@ -10,8 +10,7 @@ const ProjectSchema = new Schema({
   kpis: [
     {
       title: { type: String, required: true },
-      description: String,
-      baseline: { value: Number, valueType: String }
+      description: String
     }
   ],
   sessions: [
@@ -22,7 +21,8 @@ const ProjectSchema = new Schema({
         {
           kpiId: { type: Schema.ObjectId, ref: "kpis" },
           data: { value: Number, valueType: String },
-          comment: String
+          comment: String,
+          isBaseline: Boolean
         }
       ]
     }
