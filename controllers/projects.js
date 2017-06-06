@@ -7,6 +7,11 @@ exports.findOne = async (req, res, next, id) => {
   return next();
 };
 
+exports.list = async (req, res) => {
+  const projects = await Project.find();
+  return res.json(projects);
+};
+
 exports.show = (req, res) => res.json({ projectId: req.project });
 
 exports.create = async (req, res) => {
@@ -19,32 +24,22 @@ exports.create = async (req, res) => {
   });
 };
 
+exports.createKpi = async (req, res) => {
+  const response = req.project.createKpi(req.body);
+  return res.json(response);
+};
+
 exports.deleteKpi = async (req, res) => {
   const response = await req.project.deleteKpi(req.params.kpi);
-  return res.json(
-    response
-      ? {
-          responseCode: 0,
-          message: "KPI deleted."
-        }
-      : {
-          responseCode: 1,
-          message: "No KPI found with that ID."
-        }
-  );
+  return res.json(response);
+};
+
+exports.createSession = async (req, res) => {
+  const response = req.project.createSession(req.body);
+  return res.json(response);
 };
 
 exports.deleteSession = async (req, res) => {
   const response = await req.project.deleteSession(req.params.session);
-  return res.json(
-    response
-      ? {
-          responseCode: 0,
-          message: "Session deleted."
-        }
-      : {
-          responseCode: 1,
-          message: "No session found with that ID."
-        }
-  );
+  return res.json(response);
 };

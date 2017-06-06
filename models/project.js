@@ -20,7 +20,10 @@ const ProjectSchema = new Schema({
       kpis: [
         {
           kpiId: { type: Schema.ObjectId, ref: "kpis" },
-          data: { value: Number, valueType: String },
+          data: {
+            value: { type: Number, required: true },
+            valueType: { type: String, required: true }
+          },
           comment: String,
           isBaseline: Boolean
         }
@@ -30,6 +33,10 @@ const ProjectSchema = new Schema({
 });
 
 ProjectSchema.methods = {
+  createKpi: async function(data) {
+    this.kpis.push(data);
+    return await this.save();
+  },
   deleteKpi: async function(id) {
     try {
       this.kpis.id(id).remove();
@@ -37,6 +44,10 @@ ProjectSchema.methods = {
     } catch (e) {
       return false;
     }
+  },
+  createSession: async function(data) {
+    this.sessions.push(data);
+    return await this.save();
   },
   deleteSession: async function(id) {
     try {
