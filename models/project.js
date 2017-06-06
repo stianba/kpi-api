@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const ProjectSchema = new mongoose.Schema({
+const ProjectSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -12,6 +13,19 @@ const ProjectSchema = new mongoose.Schema({
       description: String,
       baseline: { value: Number, valueType: String }
     }
+  ],
+  sessions: [
+    {
+      title: { type: String, required: true },
+      description: String,
+      kpis: [
+        {
+          kpiId: { type: Schema.ObjectId, ref: "kpis" },
+          data: { value: Number, valueType: String },
+          comment: String
+        }
+      ]
+    }
   ]
 });
 
@@ -19,6 +33,14 @@ ProjectSchema.methods = {
   deleteKpi: async function(id) {
     try {
       this.kpis.id(id).remove();
+      return await this.save();
+    } catch (e) {
+      return false;
+    }
+  },
+  deleteSession: async function(id) {
+    try {
+      this.sessions.id(id).remove();
       return await this.save();
     } catch (e) {
       return false;

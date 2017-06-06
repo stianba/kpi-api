@@ -33,3 +33,18 @@ exports.deleteKpi = async (req, res) => {
         }
   );
 };
+
+exports.deleteSession = async (req, res) => {
+  const response = await req.project.deleteSession(req.params.session);
+  return res.json(
+    response
+      ? {
+          responseCode: 0,
+          message: "Session deleted."
+        }
+      : {
+          responseCode: 1,
+          message: "No session found with that ID."
+        }
+  );
+};
